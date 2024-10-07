@@ -22,6 +22,7 @@ jobs:
         run: npm install --global surge  # Instalar Surge
 
       - name: Deploy to Surge
-        run: surge --project ./ --domain nombre-nuevo.surge.sh  # Usa tu dominio personalizado
+        run: surge --project ./ --domain nombre-nuevo.surge.sh
+
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}  # Utiliza el token de Surge que configuraste como secreto
