@@ -1,40 +1,22 @@
-name: Node.js CI
+name: Deploy to Surge
 
 on:
   push:
     branches:
-      - main  # Cambia esto según tu rama principal
-  pull_request:
-    branches:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # El entorno en el que se ejecutará el flujo de trabajo
-
+  deploy:
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Descarga el código de tu repositorio
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'  # Cambia esto a la versión de Node.js que necesites
+      - name: Install Surge
+        run: npm install --global surge
 
-      - name: Install dependencies
-        run: npm install  # Instala las dependencias del proyecto
-
-      - name: Run tests
-        run: npm test  # Ejecuta tus pruebas. Cambia esto si tu comando es diferente
-
-      - name: Build application
-        run: npm run build  # Ejecuta el script de construcción, si tienes uno definido en package.json
-
-      - name: Upload coverage results
-        if: success()  # Solo si las pruebas han pasado
-        run: npm run coverage  # Si tienes un script de cobertura
-
-      - name: Deploy
-        if: github.ref == 'refs/heads/main' && success()  # Solo despliega en la rama principal
-        run: |
-          echo "Aquí va tu comando de despliegue"  # Reemplaza esto con tu comando de despliegue
+      - name: Deploy to Surge
+        run: surge --project ./ --domain eaverage-flavor.surge.sh
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
