@@ -3,7 +3,7 @@ name: Deploy to Surge
 on:
   push:
     branches:
-      - main  # Despliega cuando se hace push a la rama main
+      - master  # Asegúrate de que esto coincida con la rama que estás usando
 
 jobs:
   deploy:
@@ -11,18 +11,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Clona tu código
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2  # Configura Node.js
-        with:
-          node-version: '16'  # Usar la versión 16 de Node.js
+        uses: actions/checkout@v2
 
       - name: Install Surge
         run: npm install --global surge  # Instalar Surge
 
       - name: Deploy to Surge
-        run: surge --project ./ --domain nombre-nuevo.surge.sh
-
+        run: surge --project ./ --domain nombre-nuevo.surge.sh  # Usa tu dominio personalizado
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}  # Utiliza el token de Surge que configuraste como secreto
