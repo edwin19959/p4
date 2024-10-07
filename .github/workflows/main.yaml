@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Usar la versión más reciente de checkout
+        uses: actions/checkout@v2  # Usar la versión más reciente
 
       - name: Install Surge
         run: npm install --global surge  # Instalar Surge
 
       - name: Deploy to Surge
-        run: surge --project ./ --domain nombre-nuevo.surge.sh  # Desplegar al nuevo dominio
+        run: surge --project ./ --domain nombre-nuevo.surge.sh   # Desplegar al dominio
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}  # Usar el token de Surge
