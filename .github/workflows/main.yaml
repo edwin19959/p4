@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 name: Deploy to Surge
 
 on:
@@ -21,27 +20,3 @@ jobs:
         run: surge --project ./ --domain erratic-form.surge.sh
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-=======
-name: Deploy to Surge
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Surge
-        run: npm install --global surge
-
-      - name: Deploy to Surge
-        run: surge --project ./ --domain erratic-form.surge.sh
-        env:
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
->>>>>>> 0691cf9407235ebab68a9d9652100fe3a29cf46e
